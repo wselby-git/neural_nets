@@ -1,0 +1,24 @@
+					ORG 0
+						L     R4,0																	; Set R4 to the address of the first neuron 
+						LR    R5,R4																; Set R5 to the address of the first neuron 
+					LOOP																					; Begin looping through the neurons
+						L     R1,0(R4)															; Get the value of the neuron
+						SL    R1,R1																	; Square the value of the neuron
+						ST    R1,0(R5)															; Store the squared value in the next neuron
+						LA    R4,4(R4)															; Move to the next neuron
+						LA    R5,4(R5)															; Move to the next neuron
+						CL    R4,END																; Check if we have reached the end of the neurons
+						BNH   LOOP																	; If not, jump back to the top of the loop
+						L     R14,0																	; Set R14 to the address of the first neuron 
+						LR    R15,R14																; Set R15 to the address of the first neuron 
+					LOOP2																					; Begin looping through the neurons 
+						L     R1,0(R14)															; Get the value of the neuron 
+						L     R2,0(R15)															; Get the value of the next neuron 
+						AR    R1,R2																	; Add the two values 
+						ST    R1,0(R14)															; Store the summed value in the current neuron
+						LA    R14,4(R14)															; Move to the next neuron
+						LA    R15,4(R15)															; Move to the next neuron
+						CL    R14,END																; Check if we have reached the end of the neurons
+						BNH   LOOP2																	; If not, jump back to the top of the loop
+						BR    R14																		; Return to the calling program
+					END
